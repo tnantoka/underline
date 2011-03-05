@@ -1,0 +1,15 @@
+<form method="POST" action="login" id="login">
+	<p>
+		<label for="user">user:</label> <input type="text" name="user" id="user" /><br />
+		<label for="pass">pass:</label> <input type="password" name="pass" id="pass" />
+	</p>
+	<p>
+		<input type="submit" value="login" />
+	</p>
+</form>
+
+<script>
+window.addEventListener('load', function(e) {
+	document.getElementById('user').focus();
+}, false);
+</script>

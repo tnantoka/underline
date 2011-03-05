@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title><%= title %> - underline</title>
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+
+<header>
+	<h1><a href="/">underline</a></h1>
+	<p>- <%= title %></p>
+	<% if (session && session.user) { %>
+	<ul>
+		<li><a href="/home">home</a></li>
+		<li><a href="/add">add</a></li>
+		<li><a href="/logout">logout</a></li>
+	</ul>
+	<% } %>
+</header>
+
+<div id="main">
+	<%- body %>
+</div>
+
+<footer>
+	<address>Copyright &copy; <a href="http://blog.bornneet.com/">bornneet.com</a> All Rights Reserved.
+	</address>
+</footer>
+
+</body>
+</html>

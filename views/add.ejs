@@ -1,0 +1,26 @@
+<form method="POST" action="add" id="add">
+	<p>
+		<label for="read">read&nbsp;&nbsp;&nbsp;:</label> <input type="text" name="read" id="read" value="" />
+		<label for="title">title&nbsp;&nbsp;&nbsp;&nbsp;:</label> <input type="text" name="title" id="title" value="" />
+		<br />
+		<label for="edition">edition:</label> <input type="text" name="edition" id="edition" value="版 刷" />
+		<label for="published">published:</label> <input type="text" name="published" id="published" value="" />
+		<br />
+		<label for="author">author&nbsp;:</label> <input type="text" name="author" id="author" value="" />
+		<label for="publisher">publisher:</label> <input type="text" name="publisher" id="publisher" value="" />
+		<br />
+		<label for="amazon">amazon&nbsp;:</label> <input type="text" name="amazon" id="amazon" value="http://" />
+		<label for="support">support&nbsp;&nbsp;:</label> <input type="text" name="support" id="support" value="http://" />
+	</p>
+	<p>
+		<input type="submit" value="add" />
+	</p>
+</form>
+
+<script>
+window.addEventListener('load', function(e) {
+	var date = new Date;
+	document.getElementById('read').value = [date.getFullYear(), date.getMonth() + 1, date.getDay()].join('/');
+	document.getElementById('title').focus();
+}, false);
+</script>

@@ -1,0 +1,188 @@
+<div id="book">
+
+<form method="POST" action="book">
+	<p>
+		<label for="read">read&nbsp;&nbsp;&nbsp;:</label> <input disabled type="text" name="read" id="read" value="<%= book.read || '' %>" />
+		<label for="title">title&nbsp;&nbsp;&nbsp;&nbsp;:</label> <input disabled type="text" name="title" id="title" value="<%= book.title || '' %>" />
+		<br />
+		<label for="edition">edition:</label> <input disabled type="text" name="edition" id="edition" value="<%= book.edition || '' %>" />
+		<label for="published">published:</label> <input disabled type="text" name="published" id="published" value="<%= book.published || '' %>" />
+		<br />
+		<label for="author">author&nbsp;:</label> <input disabled type="text" name="author" id="author" value="<%= book.author || '' %>" />
+		<label for="publisher">publisher:</label> <input disabled type="text" name="publisher" id="publisher" value="<%= book.publisher || '' %>" />
+		<br />
+		<label for="amazon">amazon&nbsp;:</label> <input disabled type="text" name="amazon" id="amazon" value="<%= book.amazon || '' %>" />
+		<label for="support">support&nbsp;&nbsp;:</label> <input disabled type="text" name="support" id="support" value="<%= book.support || '' %>" />
+	</p>
+</form>
+
+<table>
+	<tr>
+		<th>type</th>
+		<th>page</th>
+		<th>quote</th>
+		<th>color</th>
+	</tr>
+	<% for (var i = 0; i < book.marks.length + 1; i++) { %>
+	<tr>
+		<td>
+			<img src="/images/quote.gif" />
+			<img src="/images/think.gif" />
+			<img src="/images/todo.gif" />
+		</td>
+		<td>p. <input type="text" class="page" size="4" /></td>
+		<td><input type="text" class="quote" size="100" /></td>
+		<td>
+			<span class="color1">■</span>
+			<span class="color2">■</span>
+			<span class="color3">■</span>
+			<span class="color4">■</span>
+			<span class="color5">■</span>
+			<span class="color0">■</span>
+		</td>
+	</tr>
+	<% } %>
+</table>
+<p>
+		<input type="button" value="add" id="addButton" />
+		&nbsp;
+		<input type="button" value="auto" id="autoButton" />
+		&nbsp;
+		<input type="button" value="stop" id="stopButton" />
+		&nbsp;
+		<input type="button" value="save" id="saveButton" />
+</p>
+<p id="result">
+</p>
+
+</div>
+
+<script>
+function setColors(colors) {
+	for (var i = 0, length = colors.length; i < length; i++) {
+		colors[i].addEventListener('click', function(e) {
+			this.parentNode.parentNode.className = this.className;
+		}, false);
+	}
+}
+
+function setTypes(types) {
+	for (var i = 0, li = types.length; i < li; i++) {
+		types[i].addEventListener('click', function(e) {
+			var siblings = this.parentNode.getElementsByTagName('img');
+			for (var j = 0, lj = siblings.length; j < lj; j++) {
+				siblings[j].className = '';
+			}
+			this.className = 'current';
+		}, false);
+	}
+}
+
+function add() {
+	var trs = document.getElementsByTagName('tr');
+	var tr = trs[trs.length - 1];
+	var clone = tr.cloneNode(true);
+	
+	clone.querySelector('.quote').value = '';
+	clone.className = '';
+	
+	setColors(clone.querySelectorAll('td span'));
+	setTypes(clone.querySelectorAll('td img'));
+
+	document.getElementsByTagName('table')[0].appendChild(clone);
+}
+
+function toJSON() {
+	var marks = [];
+	var trs = document.getElementsByTagName('tr');
+	for (var i = 1, li = trs.length; i < li; i++) {
+		var types = trs[i].querySelectorAll('td img');
+		var type = undefined;
+		for (var j = 0, lj = types.length; j < lj; j++) {
+			if (types[j].className == 'current') {
+				type = j;
+			}
+		}
+		var page = trs[i].querySelector('.page').value;
+		var quote = trs[i].querySelector('.quote').value;
+		var color = trs[i].className;
+
+		marks.push({
+			type: type,
+			page: page,
+			quote: quote,
+			color: color
+		});
+	}
+	return JSON.stringify(marks);
+}
+
+function fromJSON(marks) {
+
+	var trs = document.getElementsByTagName('tr');
+
+	for (var i = 0; i < marks.length; i++) {
+
+		var tr = trs[i + 1];
+		
+		if (marks[i].type) {
+			tr.querySelectorAll('td img')[marks[i].type].className = 'current';			
+		}
+		
+		tr.querySelector('.page').value = marks[i].page || '';
+		tr.querySelector('.quote').value = marks[i].quote || '';
+
+		tr.className = marks[i].color;
+	}
+}
+
+function save() {
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.open("POST", "/marks/<%- book.id %>/");
+	xmlhttp.onreadystatechange = function() {
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			var date = new Date();
+			document.querySelector('#result').innerHTML = 'data saved at '
+			 + [date.getFullYear(), date.getMonth() + 1, date.getDay()].join('/') 
+			 + ' '
+			 + [date.getHours(), date.getMinutes() + 1, date.getSeconds()].join(':') 
+
+		}
+	}
+	xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xmlhttp.send("data=" + encodeURIComponent(toJSON()));
+}
+
+var intervalId;
+function autoSave() {
+	stopAuto();
+	intervalId = setInterval(save, 300 * 1000);
+}
+function stopAuto() {
+	if (intervalId) {
+		clearInterval(intervalId);
+		intervalId = 0;
+	}
+}
+
+window.addEventListener('load', function(e) {
+
+	var marks = <%- JSON.stringify(book.marks)  %>;
+
+	setColors(document.querySelectorAll('td span'));
+	setTypes(document.querySelectorAll('td img'));
+
+	fromJSON(marks);
+
+	document.getElementById("addButton").addEventListener('click', add, false);
+	document.getElementsByTagName("table")[0].addEventListener('dblclick', add, false);
+
+	document.getElementById("saveButton").addEventListener('click', save, false);
+
+	document.getElementById("autoButton").addEventListener('click', autoSave, false);
+	document.getElementById("stopButton").addEventListener('click', stopAuto, false);
+	
+	autoSave();
+	
+}, false);
+</script>

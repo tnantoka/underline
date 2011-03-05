@@ -1,0 +1,243 @@
+@charset "UTF-8";
+
+/* html5 */
+footer, header {
+	display:block;
+}
+
+body {
+/*  padding: 50px; */
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	margin: 0;
+}
+
+/* layout */
+
+header,
+footer {
+	background: gray;
+	color: white;
+	position: relative;
+}
+
+header {
+	padding: 0.5em;
+}
+
+footer {
+	padding: 0.5em 0;
+}
+
+h1 {
+	margin: 0;
+	font-style: italic;
+}
+
+h1 a {
+	color: white;
+	text-decoration: none;
+}
+
+ul {
+	margin: 0;	
+	position: absolute;
+	right: 1em;
+	bottom: 1em;
+}
+
+ul li {
+	display: inline;
+	padding: 0.25em;
+}
+
+footer {
+	text-align: center;
+}
+
+header a,
+footer a {
+	color: white;	
+}
+
+header p {
+	display: inline;
+}
+
+/* login form */
+form#login {
+	border: 1px solid gray;
+	width: 50%;
+	margin: 1em auto;
+}
+
+form#login label {
+	font-family: monospace;
+}
+
+form#login p {
+	width: 50%;
+	margin: 1em auto;
+	text-align: center;
+}
+
+form#login input#user {
+	margin-bottom: 0.5em;
+}
+
+/* home */
+table#home {
+	border-collapse: collapse;
+	width: 95%;
+	margin: 1em auto;
+	text-align: center;
+}
+
+table#home th,
+table#home td {
+	border: 1px solid gray;
+	padding: 0;
+}
+
+table#home th {
+	background: silver;
+}
+
+table#home a {
+	color: black;
+	text-decoration: none;
+	display: block;
+	margin: 0;
+}
+
+table#home a:hover {
+	color: white;
+	background: gray;
+}
+
+table#home .date {
+	width: 20%;
+}
+
+/* add */
+form#add {
+	border: 1px solid gray;
+	width: 95%;
+	margin: 1em auto;
+}
+
+form#add label {
+	font-family: monospace;
+	margin-left: 1em;
+}
+
+form#add p {
+	width: 95%;
+	margin: 1em auto;
+	text-align: center;
+}
+
+/* book */
+#book form {
+	border: 1px solid gray;
+	width: 95%;
+	margin: 1em auto;
+}
+
+#book form label {
+	font-family: monospace;
+	margin-left: 1em;
+}
+
+#book form p {
+	width: 95%;
+	margin: 1em auto;
+	text-align: center;
+}
+
+#book form input {
+	border: none;
+}
+
+#book table {
+	width: 95%;
+	margin: 0 auto;
+	text-align: center;
+	border-collapse: collapse;
+}
+
+#book table th {
+	background: gray;
+	color: white;
+}
+
+#book table th,
+#book table td {
+	border: 1px solid silver;
+	padding: 0.25em;
+}
+
+#book p {
+	text-align: center;
+}
+
+#book input.quote {
+}
+
+#book img {
+	border: none;
+}
+
+#book span {
+	cursor: pointer;
+}
+
+#book span.color1 {
+	color: orange;
+}
+#book tr.color1 {
+	background: orange;
+}
+
+#book span.color2 {
+	color: lightgreen;
+}
+#book tr.color2 {
+	background: lightgreen;
+}
+
+#book span.color3 {
+	color: yellow;
+}
+#book tr.color3 {
+	background: yellow;
+}
+
+#book span.color4 {
+	color: skyblue;
+}
+#book tr.color4 {
+	background: skyblue;
+}
+
+#book span.color5 {
+	color: silver;
+}
+#book tr.color5 {
+	background: silver;
+}
+
+#book span.color0 {
+	color: white;
+}
+#book tr.color0 {
+	background: none;
+}
+
+#book tr img {
+	cursor: pointer;
+	border: 2px solid transparent;
+}
+
+#book tr img.current {
+	border: 2px solid gray;
+}

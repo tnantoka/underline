@@ -1,0 +1,24 @@
+<table id="home">
+	<tr>
+		<th class="date">date read</th>
+		<th>book title</th>
+	</tr>
+	<% for (var i = 0; i < list.length; i++) { %>
+	<tr>
+		<td class="date"><%= list[i].read %></td>
+		<td><a href="/book/<%= list[i].id %>/"><%= list[i].title %> by <%= list[i].author %></a></td>
+	</tr>
+	<% }%>
+</table>
+
+<script>
+window.addEventListener('load', function(e) {
+	
+	/*
+	document.getElementById('remove').addEventListener('click', function(e) {
+	}, false);
+	*/
+
+}, false);
+
+</script>
