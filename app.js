@@ -87,7 +87,7 @@ var Books = (function() {
 	}
 	
 	function add(book) {
-		dict[book.id] = books.length - 1;
+		dict[book.id] = books.length;
 		books.push(book);
 	}
 	
