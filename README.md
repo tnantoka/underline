@@ -5,7 +5,7 @@ book journal application for node.js, inspired by moleskine passions.
 ## Installation
 
 	$ git clone git://github.com/tnantoka/underline.git
-	$ node app.js
+	$ node underline/app.js
 	# http://localhost:1985/
 
 ## 1985?
