@@ -45,7 +45,7 @@ var Books = (function() {
 	var books = [];
 	var dict = {};
 	
-	var files = fs.readdirSync('books');
+	var files = fs.readdirSync(join(__dirname, 'books'));
 	var jsonFiles = [];
 
 	// Select only .json files
@@ -56,7 +56,7 @@ var Books = (function() {
 	}
 
 	for (i = 0; i < jsonFiles.length; i++) {
-		var book = JSON.parse(fs.readFileSync(join('books', jsonFiles[i])));
+		var book = JSON.parse(fs.readFileSync(join(__dirname, 'books', jsonFiles[i])));
 		book.id = jsonFiles[i].replace('.json', '');
 		books.push(book);
 		dict[book.id] = i;
@@ -235,7 +235,7 @@ app.post('/add', function(req, res) {
 		
 		Books.add(book);
 		
-		fs.writeFile(join('books', id + '.json'), JSON.stringify(book), 'utf8', function(err) {
+		fs.writeFile(join(__dirname, 'books', id + '.json'), JSON.stringify(book), 'utf8', function(err) {
 			if (err) {
 				throw err;
 			}
@@ -275,7 +275,7 @@ app.post('/marks/:id/', function(req, res) {
 		book.marks = JSON.parse(data);
 		Books.set(id, book);
 
-		fs.writeFile(join('books', id + '.json'), JSON.stringify(book), 'utf8', function(err) {
+		fs.writeFile(join(__dirname, 'books', id + '.json'), JSON.stringify(book), 'utf8', function(err) {
 			if (err) {
 				throw err;
 			}
