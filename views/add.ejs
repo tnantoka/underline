@@ -20,7 +20,7 @@
 <script>
 window.addEventListener('load', function(e) {
 	var date = new Date;
-	document.getElementById('read').value = [date.getFullYear(), date.getMonth() + 1, date.getDay()].join('/');
+	document.getElementById('read').value = [date.getFullYear(), date.getMonth() + 1, date.getDate()].join('/');
 	document.getElementById('title').focus();
 }, false);
 </script>

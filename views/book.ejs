@@ -143,7 +143,7 @@ function save() {
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 			var date = new Date();
 			document.querySelector('#result').innerHTML = 'data saved at '
-			 + [date.getFullYear(), date.getMonth() + 1, date.getDay()].join('/') 
+			 + [date.getFullYear(), date.getMonth() + 1, date.getDate()].join('/') 
 			 + ' '
 			 + [date.getHours(), date.getMinutes() + 1, date.getSeconds()].join(':') 
 
